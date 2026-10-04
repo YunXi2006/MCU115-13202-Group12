@@ -6,67 +6,87 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.activity.enableEdgeToEdge
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import androidx.navigation.findNavController
-import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.navigateUp
-import androidx.navigation.ui.setupActionBarWithNavController
 import android.view.Menu
 import android.view.MenuItem
 import com.example.mycalculator.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var appBarConfiguration: AppBarConfiguration
+
     private lateinit var binding: ActivityMainBinding
+    private var currentInput = ""
+    private var firstNumber = 0.0
+    private var operator = ""
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        ViewCompat.setOnApplyWindowInsetsListener(binding.main) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
+        binding.btnZero.setOnClickListener { onDigit("0") }
+        binding.btnOne.setOnClickListener { onDigit("1") }
+        binding.btnTwo.setOnClickListener { onDigit("2") }
+        binding.btnThree.setOnClickListener { onDigit("3") }
+        binding.btnFour.setOnClickListener { onDigit("4") }
+        binding.btnFive.setOnClickListener { onDigit("5") }
+        binding.btnSix.setOnClickListener { onDigit("6") }
+        binding.btnSeven.setOnClickListener { onDigit("7") }
+        binding.btnEight.setOnClickListener { onDigit("8") }
+        binding.btnNine.setOnClickListener { onDigit("9") }
+
+        binding.btnPLus.setOnClickListener { onOperator("+") }
+        binding.btnMinus.setOnClickListener { onOperator("-") }
+        binding.btnMultiply.setOnClickListener { onOperator("×") }
+        binding.btnDivide.setOnClickListener { onOperator("÷") }
+
+        binding.allClear.setOnClickListener {
+            currentInput = ""
+            firstNumber = 0.0
+            operator = ""
+            binding.tvInput.text = currentInput
         }
-        setSupportActionBar(binding.toolbar)
 
-        val navHostFragment =
-            supportFragmentManager.findFragmentById(R.id.nav_host_fragment_content_main) as NavHostFragment
-        val navController = navHostFragment.navController
+        binding.btnEqual.setOnClickListener { onEqual() }
 
-        appBarConfiguration = AppBarConfiguration(navController.graph)
-        setupActionBarWithNavController(navController, appBarConfiguration)
 
-        binding.fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null)
-                .setAnchorView(R.id.fab).show()
+
+
+
+
+
+    }
+    private fun onDigit(digit: String) {
+        currentInput += digit
+        binding.tvInput.text = currentInput
+    }
+
+    private fun onOperator(op: String){
+        if (currentInput.isEmpty()) return
+
+        binding.tvCurrentOperand.text = "$op"
+        binding.tvOldInput.text = "$currentInput $op"
+        firstNumber = currentInput.toDouble()
+
+        operator = op
+        currentInput = ""
+    }
+    private fun onEqual(){
+        if (currentInput.isEmpty()) return
+        var secondNumber = currentInput.toDouble()
+        val result = when (operator) {
+            "+" -> firstNumber + secondNumber
+            "-" -> firstNumber - secondNumber
+            "×" -> firstNumber * secondNumber
+            "÷" -> firstNumber / secondNumber
+
+            else -> secondNumber
         }
+        binding.tvInput.text = result.toString()
+        binding.tvOldInput.text = "${binding.tvOldInput.text} $currentInput ="
+        binding.tvCurrentOperand.text = ""
+        currentInput = result.toString()
     }
 
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        menuInflater.inflate(R.menu.menu_main, menu)
-        return true
-    }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        return when (item.itemId) {
-            R.id.action_settings -> true
-            else -> super.onOptionsItemSelected(item)
-        }
-    }
-
-    override fun onSupportNavigateUp(): Boolean {
-        val navController = findNavController(R.id.nav_host_fragment_content_main)
-        return navController.navigateUp(appBarConfiguration)
-                || super.onSupportNavigateUp()
-    }
 }
