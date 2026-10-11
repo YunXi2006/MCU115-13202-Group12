@@ -1,47 +1,51 @@
 package com.example.pageswitching
-
+import android.content.Intent
 import android.os.Bundle
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
+import android.widget.Button
+import android.widget.EditText
+import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import com.example.pageswitching.ui.theme.PageSwitchingTheme
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 
-class MainActivity : ComponentActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContent {
-            PageSwitchingTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
-                    )
-                }
+class MainActivity : AppCompatActivity() {
+
+    private lateinit var tvResult: TextView
+    private lateinit var etInput: EditText
+
+    private val startForResult = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) { result ->
+        if (result.resultCode == RESULT_OK) {
+            val replyText = result.data?.getStringExtra("reply_key")
+            if (!replyText.isNullOrEmpty()) {
+                tvResult.text = replyText
             }
         }
     }
-}
 
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
+        setContentView(R.layout.activity_main)
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+            insets
+        }
 
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    PageSwitchingTheme {
-        Greeting("Android")
+        etInput = findViewById(R.id.etInput)
+        tvResult = findViewById(R.id.tvResult)
+        val btnSwitch = findViewById<Button>(R.id.btnSwitch)
+
+        btnSwitch.setOnClickListener {
+            val textToSend = etInput.text.toString()
+            val intent = Intent(this, SecActivity::class.java).apply {
+                putExtra("input_key", textToSend)
+            }
+            startForResult.launch(intent)
+        }
     }
 }

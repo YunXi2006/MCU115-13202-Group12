@@ -22,6 +22,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "Page Switching"
+rootProject.name = "PageSwitching"
 include(":app")
- 
