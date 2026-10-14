@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?android:colorBackground"
+    android:orientation="vertical"
+    android:padding="16dp"
+    tools:context=".MainMealFragment">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Select Main Meal"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+    <RadioGroup
+        android:id="@+id/rgMainMeal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RadioButton
+            android:id="@+id/rbBurger"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Burger" />
+
+        <RadioButton
+            android:id="@+id/rbFriedChicken"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Fried Chicken" />
+
+        <RadioButton
+            android:id="@+id/rbChickenNuggets"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Chicken Nuggets" />
+
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/btnMainMealDone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Done" />
+
+</LinearLayout>

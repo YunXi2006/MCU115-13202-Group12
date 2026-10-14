@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?android:colorBackground"
+    android:orientation="vertical"
+    android:padding="16dp"
+    tools:context=".SideDishesFragment">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Select Side Dishes"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:id="@+id/layoutSideDishes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+
+
+    <CheckBox
+            android:id="@+id/rbFries"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Fries" />
+
+        <CheckBox
+            android:id="@+id/rbSalad"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Salad" />
+
+        <CheckBox
+            android:id="@+id/rbCornCup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Corn Cup" />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btnSideDishesDone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Done" />
+
+</LinearLayout>
