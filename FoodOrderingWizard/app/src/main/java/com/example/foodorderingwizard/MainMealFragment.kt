@@ -33,6 +33,19 @@ class MainMealFragment : Fragment() {
             val rb = rgMainMeal.getChildAt(i) as RadioButton
             if (rb.text.toString() == current) rb.isChecked = true
         }
+        for (i in 0 until rgMainMeal.childCount) {
+            val rb = rgMainMeal.getChildAt(i) as? RadioButton
+            rb?.setOnClickListener {
+                val clickedText = rb.text.toString()
+                if (vm.order.value?.mainMeal == clickedText) {
+                    // 如果再點一次同一個，就清空選擇並清除勾選狀態
+                    rgMainMeal.clearCheck()
+                    vm.setMainMeal("") // 清空 ViewModel 中的主餐紀錄
+                } else {
+                    vm.setMainMeal(clickedText)
+                }
+            }
+        }
 
         view.findViewById<Button>(R.id.btnMainMealDone).setOnClickListener {
             val checkedId = rgMainMeal.checkedRadioButtonId

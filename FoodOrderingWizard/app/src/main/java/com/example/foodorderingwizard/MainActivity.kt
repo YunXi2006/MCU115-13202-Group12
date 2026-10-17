@@ -33,8 +33,8 @@ class MainActivity : AppCompatActivity() {
         // 按鈕 → 開啟對應的 Fragment
         findViewById<Button>(R.id.btnMainMeal).setOnClickListener { openStep(MainMealFragment()) }
         findViewById<Button>(R.id.btnSideDishes).setOnClickListener { openStep(SideDishesFragment()) }
-        // findViewById<Button>(R.id.btnDrink).setOnClickListener { openStep(DrinkFragment()) }
-        // findViewById<Button>(R.id.btnOrder).setOnClickListener { openStep(ConfirmFragment()) }
+        findViewById<Button>(R.id.btnDrink).setOnClickListener { openStep(DrinkFragment()) }
+        findViewById<Button>(R.id.btnOrder).setOnClickListener { openStep(ConfirmFragment()) }
 
         // 觀察 ViewModel，選擇改變就更新主畫面
         vm.order.observe(this) { order ->
