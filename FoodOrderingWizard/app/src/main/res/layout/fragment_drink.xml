@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?android:colorBackground"
+    android:orientation="vertical"
+    android:padding="16dp"
+    tools:context=".MainMealFragment">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Select Drink"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+    <RadioGroup
+        android:id="@+id/rgDrink"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RadioButton
+            android:id="@+id/rbCola"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Cola" />
+
+        <RadioButton
+            android:id="@+id/rbBleakTes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Bleak Tes" />
+
+        <RadioButton
+            android:id="@+id/rbWater"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Water" />
+
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/btnDrinkDone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Done" />
+
+</LinearLayout>
