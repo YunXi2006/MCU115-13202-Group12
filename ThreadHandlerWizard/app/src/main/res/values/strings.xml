@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">ThreadHandlerWizard</string>
+    <string name="tab_start">Start</string>
+    <string name="tab_progress">Progress</string>
+    <string name="tab_result">Result</string>
+    <string name="start_hint">按 Start 開始背景工作</string>
+    <string name="btn_start">Start</string>
+    <string name="btn_cancel">Cancel</string>
+    <string name="percent">%1$d%%</string>
+    <string name="percent_zero">0%</string>
+</resources>
